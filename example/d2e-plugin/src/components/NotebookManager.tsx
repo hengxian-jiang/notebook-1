@@ -153,13 +153,17 @@ export function NotebookManager({ datasetId, getToken }: NotebookManagerProps) {
   }, [])
 
   const handleCreateConfirm = useCallback(
-    async (name: string) => {
+    async (name: string, templateId: string | null) => {
       setCreateDialogOpen(false)
       if (!datasetId) return
       try {
-        const empty = createEmptyNotebook()
-        const content = serializeIpynb(empty)
-        const created = await notebookApi.createNotebook(datasetId, name, content)
+        const created = templateId
+          ? await notebookApi.createNotebookFromTemplate(templateId, name, datasetId)
+          : await notebookApi.createNotebook(
+              datasetId,
+              name,
+              serializeIpynb(createEmptyNotebook())
+            )
         setNotebooks((prev) => [...prev, created])
         setActiveNotebook(created)
         showFeedback('success', `Notebook "${name}" created.`)
@@ -405,6 +409,7 @@ export function NotebookManager({ datasetId, getToken }: NotebookManagerProps) {
 
       {createDialogOpen && (
         <CreateNotebookDialog
+          datasetId={datasetId}
           onConfirm={handleCreateConfirm}
           onCancel={() => setCreateDialogOpen(false)}
           existingNames={notebookNames}
