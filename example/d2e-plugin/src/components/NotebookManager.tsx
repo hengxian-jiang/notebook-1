@@ -191,6 +191,21 @@ export function NotebookManager({ datasetId, getToken }: NotebookManagerProps) {
     }
   }, [activeNotebook, notebookData, datasetId, showFeedback])
 
+  const handleSyncSuccess = useCallback(async () => {
+    if (!datasetId || !activeNotebook) return
+    try {
+      const list = await notebookApi.getNotebookList(datasetId)
+      setNotebooks(list)
+      const refreshed = list.find((n) => n.id === activeNotebook.id)
+      if (refreshed) {
+        setActiveNotebook(refreshed)
+      }
+    } catch (err) {
+      console.error('Failed to refresh notebooks after sync:', err)
+      showFeedback('error', 'Sync succeeded, but failed to refresh.')
+    }
+  }, [datasetId, activeNotebook, showFeedback])
+
   const handleDeleteConfirm = useCallback(async () => {
     if (!deleteTarget || !datasetId) return
     try {
@@ -324,6 +339,9 @@ export function NotebookManager({ datasetId, getToken }: NotebookManagerProps) {
         onExport={activeNotebook ? handleExport : undefined}
         onToggleShare={activeNotebook ? handleToggleShare : undefined}
         isShared={activeNotebook?.isShared ?? false}
+        datasetId={datasetId}
+        onSyncSuccess={handleSyncSuccess}
+        onFeedback={showFeedback}
       />
 
       <input
