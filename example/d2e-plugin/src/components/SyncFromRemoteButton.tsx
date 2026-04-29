@@ -55,11 +55,12 @@ export const SyncFromRemoteButton: FC<SyncFromRemoteButtonProps> = ({
       onFeedback('success', 'Notebook overwritten from remote.')
       await onSyncSuccess()
       checkDiff()
-    } catch (error: any) {
+    } catch (error) {
       console.error('Failed to sync from remote:', error)
+      const apiError = error as { response?: { data?: { message?: string } }; message?: string }
       onFeedback(
         'error',
-        error?.response?.data?.message || error?.message || 'Failed to sync from remote.'
+        apiError?.response?.data?.message || apiError?.message || 'Failed to sync from remote.'
       )
     } finally {
       setIsSyncing(false)
