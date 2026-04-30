@@ -80,7 +80,7 @@ export const CreateNotebookDialog: FC<CreateNotebookDialogProps> = ({
       <hr className="portal-dialog__divider" />
       <div className="portal-dialog__content portal-dialog__content--form">
         <div className="create-notebook-dialog__input-wrapper">
-          <label className="create-notebook-dialog__label">Notebook Name</label>
+          <label className="create-notebook-dialog__label">Notebook name</label>
           <input
             ref={inputRef}
             type="text"
