@@ -22,27 +22,9 @@ $primary: #000080;
     outline: none;
     font-size: 1rem;
     padding: 6px 0;
-    color: #1a1a2e;
+    color: $primary;
     background: transparent;
     font-family: inherit;
-  }
-
-  &__select {
-    width: 100%;
-    border: none;
-    border-bottom: 2px solid $primary;
-    outline: none;
-    font-size: 1rem;
-    padding: 6px 0;
-    color: #1a1a2e;
-    background: transparent;
-    font-family: inherit;
-    cursor: pointer;
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: default;
-    }
   }
 
   &__error {

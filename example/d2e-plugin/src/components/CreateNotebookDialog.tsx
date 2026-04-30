@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FC } from 'react'
 import * as notebookApi from '../api/notebook-api'
 import type { NotebookTemplateDto } from '../types'
+import { TemplateSelect } from './TemplateSelect'
 import './CreateNotebookDialog.scss'
 import './Dialog.scss'
 
@@ -101,19 +102,12 @@ export const CreateNotebookDialog: FC<CreateNotebookDialogProps> = ({
 
         <div className="create-notebook-dialog__input-wrapper">
           <label className="create-notebook-dialog__label">Template</label>
-          <select
-            className="create-notebook-dialog__select"
-            value={selectedTemplateId}
-            onChange={(e) => setSelectedTemplateId(e.target.value)}
+          <TemplateSelect
+            templates={templates}
+            selectedTemplateId={selectedTemplateId}
+            onSelect={setSelectedTemplateId}
             disabled={loadingTemplates}
-          >
-            <option value="">— No template (blank notebook) —</option>
-            {templates.map((t) => (
-              <option key={t.id} value={t.id}>
-                {t.name} — {t.description}
-              </option>
-            ))}
-          </select>
+          />
         </div>
       </div>
       <hr className="portal-dialog__divider" />
