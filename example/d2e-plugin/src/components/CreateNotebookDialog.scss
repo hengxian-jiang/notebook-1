@@ -33,3 +33,8 @@ $primary: #000080;
     text-align: left;
   }
 }
+
+dialog.portal-dialog:has(.create-notebook-dialog__input-wrapper),
+.portal-dialog__content:has(.create-notebook-dialog__input-wrapper) {
+  overflow: visible;
+}
