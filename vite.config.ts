@@ -20,6 +20,17 @@ export default defineConfig({
       'Cross-Origin-Embedder-Policy': 'require-corp',
     },
   },
+  build: {
+    cssCodeSplit: false,
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.names?.some((n) => n.endsWith('.css'))) return 'style.css'
+          return 'assets/[name]-[hash][extname]'
+        },
+      },
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',

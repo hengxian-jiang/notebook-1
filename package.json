@@ -3,6 +3,14 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    "./style.css": "./dist/style.css",
+    "./src/*": "./src/*"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

@@ -7,8 +7,7 @@ specs/
 # Dependencies
 node_modules/
 
-# Build output
-dist/
+# Build output (dist is committed for consumers; ignore other build dirs)
 build/
 
 # Environment
